@@ -81,10 +81,10 @@ one tiny test prompt to confirm you're signed in.
 
 ## Step 2: Get the project
 
-- **Easiest:** on this project's GitHub page, click the green **Code** button, then **Download ZIP**.
+- **Easiest:** on [the project's GitHub page](https://github.com/evandugas/job-search-kit), click the green **Code** button, then **Download ZIP**.
   Unzip it somewhere you'll keep it, for example your Documents folder. Rename the folder to
   `job-search-kit` if it's called something like `job-search-kit-main`.
-- **With git:** `git clone <this repo's URL> job-search-kit`
+- **With git:** `git clone https://github.com/evandugas/job-search-kit.git`
 
 Keep the folder in one place: the daily schedule points at it.
 
