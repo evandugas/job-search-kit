@@ -1,0 +1,179 @@
+# Daily job search config. setup.py writes config.toml from this file; edit freely afterward.
+# The search terms, locations and company boards below are a WORKING EXAMPLE for an entry-level
+# biotech / bioinformatics search around Boston. Replace them with your own field and area
+# (setup.py replaces title_keywords, locations and the search terms for you).
+
+
+[search]
+# A posting is kept if its TITLE contains any of these (case-insensitive).
+title_keywords = [
+  "bioinformatic", "computational", "genomic", "data scien", "data analyst", "machine learning",
+  "single-cell", "single cell", "biostatist", "informatics", "ngs", "sequencing", "multi-omic",
+  "multiomic", "proteomic", "transcriptomic", "spatial", "scientific software", "research software",
+  "data engineer", "pipeline", "statistical genetic",
+  # Entry-level computational titles 
+  "research data", "data special", "clinical data", "health data", "scientific program",
+  # Wet lab / molecular biology 
+  "research associate", "associate scientist", "scientist i", "research technician", "lab technician",
+  "laboratory technician", "molecular biolog", "cell culture", "assay", "pcr", "cell biolog",
+  # GMP QC / quality / validation
+  "quality control", "qc", "quality", "validation", "compliance",
+  # Bioprocess / manufacturing / analytical
+  "bioprocess", "biomanufacturing", "manufacturing associate", "upstream", "downstream",
+  "process development", "process scien", "analytical", "formulation",
+  # Quantitative / data roles 
+  "quantitative", "statistic", "signal processing", "algorithm",
+]
+# Drop postings whose title contains any of these. These suit an entry-level search (roles at
+# these levels usually need many years of experience). Adjust for your own level.
+exclude_title_keywords = [
+  "intern", "co-op", "director", "vice president", "vp,", "head of", "principal", "staff", "lead",
+  "manager", "postdoc", "post-doc", "postdoctoral", "fellow", "sales", "account", "supervisor",
+  "clinical research associate", "cra ", "cra,",
+]
+
+# A posting is kept if its location contains any of these (case-insensitive).
+locations = [
+  "boston", "cambridge", "waltham", "lexington", "watertown", "somerville", "burlington",
+  "woburn", "bedford", "framingham", "marlborough", "andover", "billerica", "worcester",
+  "massachusetts", ", ma",
+]
+# Location segments containing these are ignored (e.g. Cambridge, England).
+exclude_locations = ["england", "united kingdom", " uk", "cambridgeshire", "hinxton", "ontario", "canada"]
+include_remote = true    # also keep US-remote postings (many startups post remote computational roles)
+
+# Only keep postings published within this many days (0 = today only, 1 = today or yesterday).
+# Remove the line to disable the date filter.
+max_posted_age_days = 3
+board_max_posted_age_days = 30   # company boards (Greenhouse/Lever/Ashby/Workable/Workday): already-seen jobs are skipped
+keep_undated = false     # postings with no publish date are dropped unless this is true
+
+[ranking]
+min_score_to_email = 6       # 1-10; postings below this are left out of the email
+min_score_to_email_preferred = 5   # lower bar for preferred roles (profile.toml [categories]); optional
+max_jobs_per_claude_call = 20
+
+[tailoring]
+# For top matches, Claude rewrites your resume (starting from the version closest to the role) for that job (reorder, select, rephrase;
+# never invents). Saved as PDF + DOCX in tailored/<date>/, PDFs attached to the email.
+enabled = true
+min_score = 7
+min_score_preferred = 6   # lower bar for preferred roles (profile.toml [categories]); optional
+max_per_run = 15          # matches tailored per run (each adds ~2 min)
+attach_to_email = true
+# Matches scoring at least this also get a cover letter (PDF + DOCX). Every tailored match joins
+# the apply queue (python apply.py list).
+cover_letter_min_score = 8
+
+[email]
+enabled = true
+to = ""                 # where the digest goes (setup.py fills this in)
+# The Gmail address and app password are read from secrets.toml (not this file).
+
+# ---------------------------------------------------------------------------
+# Job aggregators (many companies at once; covers big pharma, hospitals, and institutes
+# whose own career sites can't be queried directly, e.g. Dana-Farber, Takeda, BMS).
+# ---------------------------------------------------------------------------
+[aggregators]
+compbiojobs_pages = ["/jobs/boston", "/jobs/entry-level", "/jobs/bioinformatics", "/jobs/computational-biology"]
+# VC portfolio job boards (Consider platform): every portfolio company's openings, including small
+# startups whose own job boards can't be read directly.
+consider_boards = [
+  { host = "careers.atlasventure.com",   board = "atlas-venture" },
+  { host = "jobs.thirdrockventures.com", board = "third-rock-ventures" },
+]
+builtin_sites = ["www.builtinboston.com"]
+builtin_search_terms = ["bioinformatics", "computational biology", "genomics", "data scientist biotech",
+                        "research associate", "quality control", "bioprocess",
+                        "bioinformatics analyst", "data analyst healthcare"]
+builtin_max_pages = 2
+
+# LinkedIn public job search (no login). 10 results per page; date window follows
+# max_posted_age_days. Delete the terms line to turn LinkedIn off.
+linkedin_search_terms = ["bioinformatics", "computational biology", "bioinformatician", "genomics data scientist",
+                         "research associate", "associate scientist", "QC analyst", "quality control biotech",
+                         "bioprocess associate", "molecular biology",
+                         # entry-level computational
+                         "bioinformatics analyst", "research data analyst", "computational associate",
+                         "data analyst hospital", "data analyst biotech", "scientific programmer"]
+linkedin_location = "Boston, Massachusetts"
+linkedin_max_pages = 2
+
+# ---------------------------------------------------------------------------
+# Company job boards. Add more companies by appending entries.
+#   Greenhouse: boards.greenhouse.io/<token>   Lever: jobs.lever.co/<token>
+#   Ashby: jobs.ashbyhq.com/<token>
+#   Workday: paste any job URL like https://<host>.myworkdayjobs.com/<site>/...
+# Companies outside Massachusetts are fine to list; the location filter drops non-local jobs.
+# ---------------------------------------------------------------------------
+[boards]
+greenhouse = [
+  # Boston-area therapeutics / platform biotech
+  "ginkgobioworks", "relaytherapeutics", "generatebiomedicines", "dynotherapeutics",
+  "tesseratherapeutics", "beamtherapeutics", "cellarity", "lilasciences", "eikontherapeutics",
+  "valohealth", "kymeratherapeutics", "tangotherapeutics", "strandtherapeutics",
+  "ringtherapeutics", "manifoldbio", "stoketherapeutics", "primemedicine", "rapporttherapeutics",
+  "entradatherapeutics", "dynetherapeutics", "keros", "resilience", "verve", "seres",
+  # Genomics, diagnostics, tools
+  "elementbiosciences", "singulargenomics", "ultimagenomics", "seer", "parsebiosciences",
+  "twistbioscience", "genedx", "natera", "freenome", "veracyte",
+  # Health tech / scientific software / AI-bio
+  "pathai", "dotmatics", "komodohealth", "flatironhealth", "noetik", "profluent", "abcellera",
+  "recursionpharmaceuticals", "inceptive", "arcinstitute", "biohub",
+  # AI / tech companies
+  "anthropic", "isomorphiclabs", "databricks",
+  # Added 2026-10-18 from board discovery (verified board owner + Boston-area postings)
+  "alnylampharmaceuticals", "elevatebio", "formationbio", "antaresrx", "beaconbiosignals", "kailera",
+  "obsidiantherapeutics", "watershed", "blueprintmedicines", "invivyd", "xiliotherapeutics",
+  "clicktherapeutics", "remixtherapeutics", "discmedicine", "nimbustherapeutics", "vorbiopharma",
+  "montaihealth", "schrdinger", "openeye", "concertai", "ketryx",
+  # 2026 Boston startups
+  "bioslife", "profound", "citytherapeutics", "seaporttherapeutics", "harbingerhealth",
+]
+lever = ["enveda", "arsenalbio", "korrobio", "scholarrock",
+         "deepgenomics", "atavistik-bio", "trivenibio", "artbio", "arcadia", "veeva"]
+ashby = ["insitro", "asimov", "benchling", "pathos", "owkin", "latentlabs", "chaidiscovery", "absci",
+         "openai", "cohere", "perplexity", "nabla",
+         "iambic-therapeutics", "basecamp-research", "inductive-bio", "cradlebio", "arbor", "bicara-therapeutics"]
+
+# Workable: apply.workable.com/<token>
+workable = ["velsera", "tetrascience", "huggingface"]
+
+workday = [
+  { name = "Moderna",          url = "https://modernatx.wd1.myworkdayjobs.com/M_tx" },
+  { name = "Novartis",         url = "https://novartis.wd3.myworkdayjobs.com/Novartis_Careers" },
+  { name = "Vertex",           url = "https://vrtx.wd501.myworkdayjobs.com/Vertex_Careers" },
+  { name = "Biogen",           url = "https://biibhr.wd3.myworkdayjobs.com/external" },
+  { name = "Mass General Brigham", url = "https://massgeneralbrigham.wd1.myworkdayjobs.com/MGBExternal" },
+  { name = "Sanofi",           url = "https://sanofi.wd3.myworkdayjobs.com/SanofiCareers" },
+  { name = "Pfizer",           url = "https://pfizer.wd1.myworkdayjobs.com/PfizerCareers" },
+  { name = "AstraZeneca",      url = "https://astrazeneca.wd3.myworkdayjobs.com/Careers" },
+  { name = "Thermo Fisher",    url = "https://thermofisher.wd5.myworkdayjobs.com/ThermoFisherCareers" },
+  { name = "Regeneron",        url = "https://regeneron.wd1.myworkdayjobs.com/Careers" },
+  { name = "GSK",              url = "https://gsk.wd5.myworkdayjobs.com/GSKCareers" },
+  { name = "Johnson & Johnson", url = "https://jj.wd5.myworkdayjobs.com/JJ" },
+  { name = "Illumina",         url = "https://illumina.wd1.myworkdayjobs.com/illumina-careers" },
+  { name = "NVIDIA",           url = "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite" },
+  { name = "Roche / Genentech", url = "https://roche.wd3.myworkdayjobs.com/roche-ext" },
+  # Lab / QC / manufacturing-heavy employers with Massachusetts sites
+  { name = "Bristol Myers Squibb", url = "https://bristolmyerssquibb.wd5.myworkdayjobs.com/BMS" },
+  { name = "Merck",            url = "https://msd.wd5.myworkdayjobs.com/SearchJobs" },
+  { name = "Lonza",            url = "https://lonza.wd3.myworkdayjobs.com/Lonza_Careers" },
+  { name = "Agilent",          url = "https://agilent.wd5.myworkdayjobs.com/Agilent_Careers" },
+  { name = "Bio-Techne",       url = "https://biotechne.wd5.myworkdayjobs.com/BioTechne" },
+  { name = "Danaher (Cytiva, Beckman, etc.)", url = "https://danaher.wd1.myworkdayjobs.com/DanaherJobs" },
+  # Added 2026-10-18
+  { name = "Beth Israel Lahey Health", url = "https://bilh.wd1.myworkdayjobs.com/External" },
+  { name = "Tempus",           url = "https://tempus.wd5.myworkdayjobs.com/Tempus_Careers" },
+  { name = "Intellia",         url = "https://intelliatx.wd1.myworkdayjobs.com/IntelliatxCareers" },
+  { name = "Eisai",            url = "https://eisai.wd5.myworkdayjobs.com/Eisai" },
+  { name = "IQVIA",            url = "https://iqvia.wd1.myworkdayjobs.com/Iqvia" },
+  { name = "Azenta",           url = "https://azenta.wd1.myworkdayjobs.com/AzentaJobs" },
+  # Added 2026-10-19: PwC (mostly senior consulting; entry-level site has campus hires)
+  { name = "PwC",              url = "https://pwc.wd3.myworkdayjobs.com/US_Experienced_Careers" },
+  { name = "PwC (entry level)", url = "https://pwc.wd3.myworkdayjobs.com/US_Entry_Level_Careers" },
+]
+# Search terms sent to Workday boards (they're large, so we search instead of listing everything).
+workday_search_terms = ["bioinformatics", "computational biology", "genomics", "data scientist", "bioinformatician",
+                        "research associate", "associate scientist", "quality control", "QC analyst", "bioprocess",
+                        "data analyst", "bioinformatics analyst", "computational", "scientific programmer"]

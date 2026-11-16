@@ -1,0 +1,60 @@
+# Who you are, in plain words. Claude reads this when it scores postings and writes your tailored
+# resume and cover letters. `python setup.py` fills in the basics; edit freely afterward.
+# Facts about your experience belong in your resume files (resume/), not here.
+
+[candidate]
+# Your career level, in the words a recruiter would use.
+level = "early-career (MS new grad)"          # e.g. "mid-level, 6 years experience", "career changer from teaching"
+field = "bioinformatics / life sciences"      # e.g. "software engineering", "marketing", "nursing"
+location = "Boston, MA"                        # shown on your resume header
+target_roles = "bioinformatics analyst, computational biologist, data analyst, research associate"
+
+# Titles that accept someone at your level (helps Claude judge "realistic" vs "stretch").
+realistic_titles = "Scientist I, Associate Scientist, Analyst I, Research Associate, Data Analyst I"
+
+# Requirements that truly rule a posting out for you (score capped at 4). One per line.
+hard_blockers = """
+- A PhD that is explicitly REQUIRED with no MS alternative
+- MS + 5 or more years, or 4+ years of post-degree industry experience
+- A license, certification or clearance I don't have
+"""
+
+# Gaps that are NOT deal-breakers for you (score 5-7). One per line. Optional.
+near_misses = """
+- "MS + 2-3 years" where graduate research plausibly counts
+- One or two required tools missing when I have adjacent experience
+"""
+
+# How Claude should count your experience, e.g. whether research, internships or part-time work
+# count toward "N years". Name the roles and dates so it can add them up.
+experience_notes = """
+Graduate research counts as professional experience: about 2 years of it, plus two summer
+industry internships and a part-time lab job during undergrad. So "MS + 1-2 years" is met;
+"MS + 3+ years" is not.
+"""
+
+# Fields that are clearly not a fit (score 1-2). Optional.
+unrelated_fields = "finance, insurance, sales, construction"
+
+[categories]
+# Optional: split matches into a preferred and a backup kind of role. Preferred roles get +bonus,
+# backup roles -bonus, and the email shows them in two groups. Delete this whole section if you
+# have no preference.
+preferred_label = "Computational / data roles"
+preferred = "bioinformatics, computational biology, data analysis/science, ML, scientific software"
+backup_label = "Lab / QC / bioprocess roles"
+backup = "wet-lab, QC/quality, bioprocess and manufacturing roles"
+bonus = 1
+# Used only to guess the group of a posting Claude hasn't labeled (substring match on the title).
+preferred_title_keywords = ["bioinformat", "computational", "data anal", "data scien", "machine learning",
+                            "software", "statistic", "informatics"]
+# Config score cutoffs can differ for preferred roles: add e.g. `min_score_to_email_preferred = 5`
+# under [ranking] or `min_score_preferred = 6` under [tailoring] in config.toml.
+
+[resume]
+pages = 2              # 1 or 2: tailored resumes are filled to exactly this many full pages
+# Your own formatting rules for tailored resumes and cover letters. One per line. Optional.
+style = """
+- Never put GPA in the summary
+- Dates in one format: "Mon YYYY - Mon YYYY"
+"""

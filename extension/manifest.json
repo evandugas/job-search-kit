@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Job Search Autofill",
+  "version": "1.0",
+  "description": "Fills job applications with your tailored resume, cover letter and standard answers from the local job-search helper. Never submits.",
+  "background": { "service_worker": "background.js" },
+  "host_permissions": ["http://127.0.0.1:8765/*"],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.myworkdayjobs.com/*",
+        "*://*.myworkdaysite.com/*",
+        "*://boards.greenhouse.io/*",
+        "*://job-boards.greenhouse.io/*",
+        "*://jobs.lever.co/*",
+        "*://jobs.ashbyhq.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ]
+}

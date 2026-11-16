@@ -1,0 +1,19 @@
+CORRECTIONS AND MASTER PROFILE (this file overrides every resume file, including the newest)
+Copy this file to corrections.txt and replace the examples. Delete any section you don't need.
+
+=== CORRECTIONS ===
+- State University, BS Computer Science: GPA is 3.62 (some resume versions say 3.6).
+- Where resume versions disagree on dates, use the dates in this file.
+
+=== PREFERENCES ===
+- Prefers remote or hybrid roles.
+- Not willing to relocate.
+
+=== CONFIRMED ADDITIONAL SKILLS ===
+Skills you really have that no resume mentions. Claude lists these as skills only and never invents
+bullets, numbers or projects for them.
+- Docker, PostgreSQL, Tableau
+
+=== NEVER CLAIM ===
+Things you have NOT done, so Claude won't add them even if a posting asks.
+- AWS, Kubernetes, Java

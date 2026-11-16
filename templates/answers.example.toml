@@ -1,0 +1,49 @@
+# Standard answers for job application forms. Claude (and the Chrome extension) fill forms from this
+# file and your resumes. Anything left blank ("") is NOT guessed: Claude stops and asks you instead.
+# Keep this file private (it's local only, gitignored, and never emailed).
+
+[contact]
+first_name = ""
+last_name = ""
+preferred_name = ""
+email = ""
+phone = ""
+address_line1 = ""
+address_line2 = ""
+city = ""
+state = ""
+zip = ""
+country = ""
+linkedin = ""
+github = ""
+website = ""
+
+[eligibility]
+authorized_to_work_in_us = ""      # "yes" / "no"
+needs_sponsorship_now = ""         # "yes" / "no"
+needs_sponsorship_future = ""      # "yes" / "no"
+over_18 = ""                       # "yes" / "no"
+
+[preferences]
+earliest_start_date = ""           # e.g. "immediately", "2 weeks notice", "June 2027"
+desired_salary = ""                # blank = use each posting's own pay range (left for you if it has none)
+willing_to_relocate = ""           # "yes" / "no"
+work_arrangement = ""              # "onsite, hybrid or remote" etc.
+open_to_shift_work = ""            # some roles are nights/weekends: "yes" / "no"
+how_did_you_hear = ""              # e.g. "LinkedIn", "Company website"
+
+[education]
+# Facts come from your resumes; resume/corrections.txt overrides them.
+highest_degree = ""                # e.g. "BS, Computer Science, State University"
+
+# Voluntary self-identification (EEO). "decline" = "I don't wish to answer".
+[eeo]
+gender = "decline"
+race_ethnicity = "decline"
+veteran_status = "decline"
+disability_status = "decline"
+
+[notes]
+# Anything else Claude should know when filling forms (e.g. "never answer salary questions with a
+# number below X", "I prefer to be contacted by email").
+text = ""
